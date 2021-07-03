@@ -12,13 +12,13 @@ const app = express()
 if (process.env.NODE_ENV !== 'Production') {
     dotenv.config()
 }
-
+const port = process.env.PORT || 8000
 //middle ware
 app.use(express.json({ limit: "30mb", extended: true }))
 app.use(express.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors()) //for cross orgin resource sharing
 
-const port = process.env.PORT || 8000
+
 
 //Db connection
 mongoose.connect(process.env.DB_URI, {
@@ -36,7 +36,6 @@ mongoose.set('useFindAndModify', false) //for not showing any warnings in consol
 
 
 //Routes
-
 app.use("/blogs",blogs)
 
 
