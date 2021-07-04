@@ -16,7 +16,9 @@ const blogSchema = mongoose.Schema({
     tags:{
         type: [String],
     },
-    CoverImage:String,
+    coverImage:{
+        type:String
+    },
     likeCount:{
         type: Number,
         default: 0
