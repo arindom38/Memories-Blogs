@@ -13,7 +13,7 @@ export const getblogs = async (req,res) =>{
 export const createblogs =async (req,res) =>{
      if(req.body != null && req.body != ''){
          const newblog = new Blogs(req.body)
-         await Blogs.save(newblog)
+         await newblog.save()
          .then(result=>{
              res.status(201).json(result)
          })
