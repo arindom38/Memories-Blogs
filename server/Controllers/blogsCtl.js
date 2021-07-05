@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import Blogs from "../Modules/Blogs.js"
 
 export const getblogs = async (req,res) =>{
@@ -24,4 +25,20 @@ export const createblogs =async (req,res) =>{
      else{
          res.status(404).json({ errMssg: "No Data Recieve"})
      }
+}
+
+export const updateBlog = async (req,res)=>{
+    const { id: _id } = req.params
+    const blog = req.body
+
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(404).send("No Blog Found with such id")
+    }
+    await Blogs.findByIdAndUpdate(_id,blog,{new : ture})
+        .then(result=>{
+            res.json(result)
+        })
+        .cathc(err=>{
+            console.error(err.message)
+        })
 }
