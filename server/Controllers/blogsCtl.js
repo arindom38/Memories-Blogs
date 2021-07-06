@@ -34,11 +34,11 @@ export const updateBlog = async (req,res)=>{
     if(!mongoose.Types.ObjectId.isValid(_id)){
         return res.status(404).send("No Blog Found with such id")
     }
-    await Blogs.findByIdAndUpdate(_id,blog,{new : ture})
+    await Blogs.findByIdAndUpdate(_id,{...blog,_id},{new : true})
         .then(result=>{
             res.json(result)
         })
-        .cathc(err=>{
+        .catch(err=>{
             console.error(err.message)
         })
 }

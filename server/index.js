@@ -23,9 +23,7 @@ app.use(cors()) //for cross orgin resource sharing
 //Db connection
 mongoose.connect(process.env.DB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    poolSize: 50,
-    socketTimeoutMS: 50000
+    useUnifiedTopology: true
 })
     .then(() => {
        app.listen(port, () => console.log(`Server is listenitng to port : ${port}`))

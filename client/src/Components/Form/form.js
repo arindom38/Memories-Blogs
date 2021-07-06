@@ -1,21 +1,37 @@
 import useStyles from './style';
-import { useState } from 'react';
-import {useDispatch} from "react-redux"
-import {createBlog} from "../../actions/blogsAct"
+import { useState ,useEffect} from 'react';
+import {useDispatch,useSelector} from "react-redux"
+import {createBlog,updateBlog} from "../../actions/blogsAct"
 import FileBase from "react-file-base64"
 import {Typography,TextField,Button,Paper}  from "@material-ui/core";
-const Form = () => {
+
+const Form = ({currentId,setCurrentId}) => {
     const StyleClass = useStyles()
     const [postData,setPostData] = useState({ creator: '',title: '', coverImage: '',message:'',tags: '' })
     const dispatch = useDispatch()
+    //the blog need to update , find the id with in the existing id , if match the variable = that blog, else null
+    const updatedBlog = useSelector((state)=> currentId ?  state.blogs.find((p)=> p._id === currentId): null ) 
+
+    useEffect(() => {
+        if(updatedBlog){
+            setPostData(updatedBlog)
+        }
+    }, [updatedBlog])    
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        dispatch(createBlog(postData))
+        if(currentId){ 
+            dispatch(updateBlog(currentId,postData)) //modify exisiting data
+        }
+        else{
+            dispatch(createBlog(postData)) // creating new data
+        }
+        clear()
     }
     const clear = () => {
-
+        setCurrentId(null)
+        setPostData({ creator: '',title: '', coverImage: '',message:'',tags: '' })
     }
     return ( 
         <Paper className={StyleClass.paper}>

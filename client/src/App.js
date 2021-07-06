@@ -4,17 +4,18 @@ import Blogs from "./Components/Blogs/blogs"
 import Form from "./Components/Form/form"
 import useStyles from './styles'
 //Hooks
-import {useEffect} from "react" 
+import {useEffect,useState} from "react" 
 import {useDispatch} from "react-redux" 
 import {getblogs} from "./actions/blogsAct"
 
 function App() {
+  const [currentId,setCurrentId] = useState(null)
   const styleClass = useStyles()
   const dispatch = useDispatch()
-  
+
   useEffect(()=>{
-    dispatch(getblogs())
-  },[dispatch])
+    dispatch(getblogs()) //render page everytime blogs are updated
+  },[currentId,dispatch]) 
 
   return (
     <Container maxWidth="lg">
@@ -26,10 +27,10 @@ function App() {
         <Container>
           <Grid container justify="space-between" alignItems="stretch" spacing={3}>
             <Grid item xs={12} sm={7}>
-              <Blogs />
+              <Blogs setCurrentId={setCurrentId} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form />
+              <Form currentId={currentId} setCurrentId={setCurrentId}/>
             </Grid>
           </Grid>
         </Container>
