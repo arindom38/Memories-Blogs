@@ -30,7 +30,7 @@ const Blog = ({ blog,setCurrentId }) => {
                 <Typography variant="body2" color="textSecondary" component="p">{blog.message}</Typography>
             </CardContent>
             <CardActions className={StyleClass.cardActions}>
-                <Button size="small" color="primary" onClick={() => dispatch(likeBlog(blog._id))}><ThumbUpAltIcon fontSize="small" /> Like {blog.likeCount} </Button>
+                <Button size="small" color="primary" onClick={() => dispatch(likeBlog(blog._id))}><ThumbUpAltIcon fontSize="small" /> &nbsp; Like &nbsp; {blog.likeCount} </Button>
                 <Button size="small" color="primary" onClick={() => dispatch(deleteBlog(blog._id))}><DeleteIcon fontSize="small" /> Delete</Button>
             </CardActions>
         </Card>
