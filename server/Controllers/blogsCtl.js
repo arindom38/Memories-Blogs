@@ -42,3 +42,29 @@ export const updateBlog = async (req,res)=>{
             console.error(err.message)
         })
 }
+
+export const deleteBlog = async (req,res) => {
+    const {id: _id} = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(404).send("No Blog Found with such id")
+    }
+    await Blogs.findByIdAndRemove(_id)
+        .then(result=>{
+            res.status(200).json({message: 'Blog is Deleted succesfully'})
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+}
+
+export const likeBlog = async (req,res) => {
+    const {id: _id} = req.params
+    
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(404).send("No Blog Found with such id")
+    }
+
+    const blog = await Blogs.findById(_id)
+    const updatedBlog = await Blogs.findByIdAndUpdate(_id,{likeCount : blog.likeCount+1},{new:true}) 
+}

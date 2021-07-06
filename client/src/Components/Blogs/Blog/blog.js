@@ -4,9 +4,13 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from "moment"
+import {useDispatch} from "react-redux"
+import {deleteBlog,likeBlog} from "../../../actions/blogsAct"
 
 const Blog = ({ blog,setCurrentId }) => {
     const StyleClass = useStyles()
+    const dispatch = useDispatch()
+
     return (
         <Card className={StyleClass.card}>
             {/* {blog.coverImage ? (<CardMedia className={StyleClass.media} image={blog.coverImage} title={blog.title} />) : <CircularProgress />} */}
@@ -23,11 +27,11 @@ const Blog = ({ blog,setCurrentId }) => {
             </div>
             <Typography className={StyleClass.title} variant="h5" gutterBottom>{blog.title}</Typography>
             <CardContent>
-                <Typography className={StyleClass.details} variant="h5" gutterBottom>{blog.message}</Typography>
+                <Typography variant="body2" color="textSecondary" component="p">{blog.message}</Typography>
             </CardContent>
             <CardActions className={StyleClass.cardActions}>
-                <Button size="small" color="primary" onClick={() => { }}><ThumbUpAltIcon fontSize="small" /> Like {blog.likeCount} </Button>
-                <Button size="small" color="primary" onClick={() => { }}><DeleteIcon fontSize="small" /> Delete</Button>
+                <Button size="small" color="primary" onClick={() => dispatch(likeBlog(blog._id))}><ThumbUpAltIcon fontSize="small" /> Like {blog.likeCount} </Button>
+                <Button size="small" color="primary" onClick={() => dispatch(deleteBlog(blog._id))}><DeleteIcon fontSize="small" /> Delete</Button>
             </CardActions>
         </Card>
     );

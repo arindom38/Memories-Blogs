@@ -29,3 +29,23 @@ export const updateBlog = (id,blog) =>async (dispatch) =>{
         console.error(error)
     }
 }
+
+//delete blog
+export const deleteBlog = (id) => async (dispatch) => {
+    try {
+        await api.deleteBlog(id)
+        dispatch({type:"DELETE",payload: id})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+//like blog
+export const likeBlog = (id) => async (dispatch) => {
+    try {
+        const {data} = await api.likeBlog(id)
+        dispatch({type: "LIKE",payload: data})
+    } catch (error) {
+        console.log(error)
+    }
+}
