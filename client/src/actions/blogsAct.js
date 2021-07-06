@@ -1,10 +1,10 @@
 import * as api from "../api/apiCall"
-
+import * as actions from "../constants/actionTypes"
 //action creators
 export const getblogs = () => async (dispatch) =>{
     try {
         const {data} = await api.fetchBlogs()
-        dispatch({type: "FETCH_ALL", payload: data})
+        dispatch({type: actions.FETCH_ALL, payload: data})
 
     } catch (error) {
         console.log(error)
@@ -14,7 +14,7 @@ export const getblogs = () => async (dispatch) =>{
 export const createBlog = (blog) => async (dispatch) => {
     try {
         const {data} = await api.createBlog(blog)
-        dispatch({type: "CREATE", payload:data})
+        dispatch({type: actions.CREATE, payload:data})
     } catch (error) {
         console.log(error)
     }
@@ -24,7 +24,7 @@ export const createBlog = (blog) => async (dispatch) => {
 export const updateBlog = (id,blog) =>async (dispatch) =>{
     try {
         const {data} = await api.updateBlog(id,blog)
-        dispatch({type: "UPDATE",payload: data})
+        dispatch({type: actions.UPDATE,payload: data})
     } catch (error) {
         console.error(error)
     }
@@ -34,7 +34,7 @@ export const updateBlog = (id,blog) =>async (dispatch) =>{
 export const deleteBlog = (id) => async (dispatch) => {
     try {
         await api.deleteBlog(id)
-        dispatch({type:"DELETE",payload: id})
+        dispatch({type: actions.DELETE,payload: id})
     } catch (error) {
         console.log(error)
     }
@@ -44,7 +44,7 @@ export const deleteBlog = (id) => async (dispatch) => {
 export const likeBlog = (id) => async (dispatch) => {
     try {
         const {data} = await api.likeBlog(id)
-        dispatch({type: "LIKE",payload: data})
+        dispatch({type: actions.UPDATE,payload: data})
     } catch (error) {
         console.log(error)
     }
