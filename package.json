@@ -1,0 +1,28 @@
+{
+  "name": "memories",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm start\" ",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "install-server": "cd server && npm install",
+    "install": "install-client && install-server",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "start": "cd server && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arindom38/Memories-Blogs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arindom38/Memories-Blogs/issues"
+  },
+  "homepage": "https://github.com/arindom38/Memories-Blogs#readme",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
