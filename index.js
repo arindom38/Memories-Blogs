@@ -11,6 +11,8 @@ const app = express()
 //checcking form which production the app is running
 if (process.env.NODE_ENV !== 'Production') {
     dotenv.config()
+}else{
+    app.use(express.static("client/build"))
 }
 const port = process.env.PORT || 8000
 //middle ware
