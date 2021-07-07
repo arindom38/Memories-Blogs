@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
+import path from "path"
 //Import routes
 import blogs from "./Routes/blogsRut.js"
 
@@ -13,6 +14,9 @@ if (process.env.NODE_ENV !== 'Production') {
     dotenv.config()
 }else{
     app.use(express.static("client/build"))
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+    })
 }
 const port = process.env.PORT || 8000
 //middle ware
@@ -37,8 +41,8 @@ mongoose.set('useFindAndModify', false) //for not showing any warnings in consol
 
 //Routes
 app.use("/blogs",blogs)
-app.get("/",(req,res)=>{
-    res.send("Welcome to Memories API")
-})
+// app.get("/",(req,res)=>{
+//     res.send("Welcome to Memories API")
+// })
 
 export default app
