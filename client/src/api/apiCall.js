@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const url = "https://memories-create-app.herokuapp.com/blogs"
+const url = "https://memories-create-app.herokuapp.com"
 
 export const fetchBlogs = () => axios.get(url)
 export const createBlog = (newBlog) => axios.post(url,newBlog)
