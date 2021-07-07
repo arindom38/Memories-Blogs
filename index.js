@@ -39,7 +39,7 @@ mongoose.set('useFindAndModify', false) //for not showing any warnings in consol
 //Routes
 app.use("/blogs",blogs)
 app.get("*",(req,res)=>{
-    res.sendFile(path.resolve(__dirname,'client/build','index.html'))
+    res.redirect("https://memoriescreation.netlify.app/")
 })
 // app.get("/",(req,res)=>{
 //     res.send("Welcome to Memories API")
