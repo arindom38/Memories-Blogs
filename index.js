@@ -12,9 +12,6 @@ const app = express()
 if (process.env.NODE_ENV !== 'Production') {
     dotenv.config()
 }
-else{
-    app.use(express.static("../client/build"))
-}
 const port = process.env.PORT || 8000
 //middle ware
 app.use(express.json({ limit: "30mb", extended: true }))
