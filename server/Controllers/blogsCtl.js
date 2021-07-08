@@ -67,4 +67,6 @@ export const likeBlog = async (req,res) => {
 
     const blog = await Blogs.findById(_id)
     const updatedBlog = await Blogs.findByIdAndUpdate(_id,{likeCount : blog.likeCount+1},{new:true}) 
+
+    res.json(updatedBlog)
 }
