@@ -1,5 +1,4 @@
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core"
-import bloglogo from "./images/bloglogo.png"
+import { Container, Grow, Grid } from "@material-ui/core"
 import Blogs from "./Components/Blogs/blogs"
 import Form from "./Components/Form/form"
 import useStyles from './styles'
@@ -7,6 +6,7 @@ import useStyles from './styles'
 import {useEffect,useState} from "react" 
 import {useDispatch} from "react-redux" 
 import {getblogs} from "./actions/blogsAct"
+import Navbar from "./Components/Navbar/navbar"
 
 function App() {
   const [currentId,setCurrentId] = useState(null)
@@ -19,10 +19,7 @@ function App() {
 
   return (
     <Container maxWidth="lg">
-      <AppBar className={styleClass.appBar} position="static" color="inherit">
-        <Typography className={styleClass.heading} variant="h2" align="center">Memories</Typography>
-        <img className={styleClass.image} src={bloglogo} alt="Memories" height="60" />
-      </AppBar>
+      <Navbar />
       <Grow in>
         <Container>
           <Grid className={styleClass.mainContainer} container justify="space-between" alignItems="stretch" spacing={3}>
