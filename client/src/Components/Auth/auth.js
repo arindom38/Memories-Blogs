@@ -7,14 +7,18 @@ import Input from "./input";
 import Icon from "./icon"
 import { GoogleLogin } from "react-google-login"
 import {useHistory} from "react-router-dom"
+import {signIn,signUp} from "../../actions/authAct"
 
+const intialState = {firstName:'',lastName:'',email:'',password:'',confirmPassword:''}
 const Auth = () => {
-    const [showPass, setShowPass] = useState(false)
-    const [isSignup, setIsSignUp] = useState(false)
     const classes = useStyles()
     const dispatch = useDispatch()
     const history = useHistory()
-    // Google log in
+    const [showPass, setShowPass] = useState(false)
+    const [isSignup, setIsSignUp] = useState(false)
+    const [formData,setFormData] = useState(intialState)
+    
+    // Google log in authentication
     const googleSuccess = async (res) =>{
         const result = res?.profileObj // ? means if res object is not found resutl = undefined not error
         const token = res?.tokenId
@@ -30,12 +34,18 @@ const Auth = () => {
         console.log("Google Sign in was unsuccessful,Please try again")
     }
 
-    //
-    const handleSubmit = () => {
-
+    // Form handle functions
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if(isSignup){
+            dispatch(signUp(formData,history))
+        }else{
+            dispatch(signIn(formData,history))
+        }
     }
-    const handleChange = () => {
-
+    //form data is set on change
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value})
     }
     const handleShowPass = () => setShowPass(!showPass)
 
@@ -43,6 +53,7 @@ const Auth = () => {
         setIsSignUp(previsSignup => !previsSignup)
         setShowPass(false)
     }
+
     return (
         <Container component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
@@ -60,8 +71,8 @@ const Auth = () => {
                                 </>
                             )
                         }
-                        <Input name="email" label="Email" type="email" onChange={handleChange} />
-                        <Input name="password" label="Password" type={showPass ? "text" : "password"} onChange={handleChange} handleShowPass={handleShowPass} />
+                        <Input name="email" label="Email" type="email" handleChange={handleChange} />
+                        <Input name="password" label="Password" type={showPass ? "text" : "password"} handleChange={handleChange} handleShowPass={handleShowPass} />
                         {isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
                     </Grid>
                     <Button fullWidth className={classes.submit} type="submit" variant="contained" color="primary">{isSignup ? "Sign Up" : "Sign In"}</Button>
