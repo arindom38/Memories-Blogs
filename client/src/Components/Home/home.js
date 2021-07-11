@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { getblogs } from "../../actions/blogsAct"
+import { getBlogs } from "../../actions/blogsAct"
 import { Container, Grow, Grid } from "@material-ui/core"
 import Blogs from "../Blogs/blogs"
 import Form from "../Form/form"
@@ -12,7 +12,7 @@ const Home = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getblogs()) //render page everytime blogs are updated
+        dispatch(getBlogs()) //render page everytime blogs are updated
     }, [currentId, dispatch])
     return (
         <Grow in>

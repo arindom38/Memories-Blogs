@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 //Import routes
 import blogs from "./Routes/blogsRut.js"
-
+import users from "./Routes/usersRut.js"
 
 const app = express()
 
@@ -38,6 +38,7 @@ mongoose.set('useFindAndModify', false) //for not showing any warnings in consol
 
 //Routes
 app.use("/blogs",blogs)
+app.use("/users",users)
 app.get("/",(req,rss)=>{
     res.send("Welcome to Memories API")
 })

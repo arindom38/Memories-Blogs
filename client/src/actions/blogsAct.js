@@ -1,7 +1,7 @@
 import * as api from "../api/apiCall"
 import * as actions from "../constants/actionTypes"
 //action creators
-export const getblogs = () => async (dispatch) =>{
+export const getBlogs = () => async (dispatch) =>{
     try {
         const {data} = await api.fetchBlogs()
         dispatch({type: actions.FETCH_ALL, payload: data})
