@@ -6,7 +6,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from "moment"
 import {useDispatch} from "react-redux"
 import {deleteBlog,likeBlog} from "../../../actions/blogsAct"
-
+import tmpCoverImg from "../../../images/coverImage.png"
 const Blog = ({ blog,setCurrentId }) => {
     const StyleClass = useStyles()
     const dispatch = useDispatch()
@@ -14,9 +14,9 @@ const Blog = ({ blog,setCurrentId }) => {
     return (
         <Card className={StyleClass.card}>
             {/* {blog.coverImage ? (<CardMedia className={StyleClass.media} image={blog.coverImage} title={blog.title} />) : <CircularProgress />} */}
-            <CardMedia className={StyleClass.media} image={blog.coverImage} title={blog.title} />
+            <CardMedia className={StyleClass.media} image={blog.coverImage || tmpCoverImg} title={blog.title} />
             <div className={StyleClass.overlay}>
-                <Typography variant="h6">{blog.creator}</Typography>
+                <Typography variant="h6">{blog.creatorName}</Typography>
                 <Typography variant="body2">{moment(blog.createdAt).fromNow()}</Typography>
             </div>
             <div className={StyleClass.overlay2}>

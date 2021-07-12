@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import Blogs from "../Modules/Blogs.js"
+import Blogs from "../Models/Blogs.js"
 
 export const getblogs = async (req,res) =>{
     await Blogs.find()
@@ -13,7 +13,8 @@ export const getblogs = async (req,res) =>{
 
 export const createblogs =async (req,res) =>{
      if(req.body != null && req.body != ''){
-         const newblog = new Blogs(req.body)
+         const blog = req.body
+         const newblog = new Blogs({...blog,creator: req.userId,createdAt:new Date().toISOString()})
          await newblog.save()
          .then(result=>{
              res.status(201).json(result)

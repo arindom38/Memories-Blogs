@@ -9,6 +9,7 @@ const blogSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    creatorName: String,
     creator:{
         type: String,
         require: true

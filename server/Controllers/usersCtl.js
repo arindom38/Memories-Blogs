@@ -1,4 +1,4 @@
-import Users from "../Modules/Users.js"
+import Users from "../Models/Users.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 
@@ -17,7 +17,7 @@ export const signIn = async (req,res) =>{
 
         res.status(200).json({result: existingUser,token:token})
     } catch (error) {
-        res.status(500).json({message: "something went wrong"})
+        res.status(500).json({message: "something went wrong in sign in"})
     }
 }
 
