@@ -39,7 +39,7 @@ mongoose.set('useFindAndModify', false) //for not showing any warnings in consol
 //Routes
 app.use("/blogs",blogs)
 app.use("/users",users)
-app.get("/",(req,rss)=>{
+app.get("/",(req,res)=>{
     res.send("Welcome to Memories API")
 })
 

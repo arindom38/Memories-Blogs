@@ -9,6 +9,7 @@ const blogSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    creatorName: String,
     creator:{
         type: String,
         require: true
@@ -18,6 +19,10 @@ const blogSchema = mongoose.Schema({
     },
     coverImage:{
         type:String
+    },
+    likes: {
+        type: [String],
+        default: []
     },
     likeCount:{
         type: Number,

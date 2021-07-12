@@ -7,8 +7,10 @@ import {Typography,TextField,Button,Paper}  from "@material-ui/core";
 
 const Form = ({currentId,setCurrentId}) => {
     const StyleClass = useStyles()
-    const [postData,setPostData] = useState({ creator: '',title: '', coverImage: '',message:'',tags: '' })
     const dispatch = useDispatch()
+    const [postData,setPostData] = useState({ title: '', coverImage: '',message:'',tags: '' })
+    //current log in user from cookies
+    const user = JSON.parse(localStorage.getItem('profile'))
     //the blog need to update , find the id with in the existing id , if match the variable = that blog, else null
     const updatedBlog = useSelector((state)=> currentId ?  state.blogs.find((p)=> p._id === currentId): null ) 
 
@@ -22,22 +24,33 @@ const Form = ({currentId,setCurrentId}) => {
         e.preventDefault()
 
         if(currentId){ 
-            dispatch(updateBlog(currentId,postData)) //modify exisiting data
+            dispatch(updateBlog(currentId,{...postData, creatorName: user?.result.name})) //modify exisiting data
         }
         else{
-            dispatch(createBlog(postData)) // creating new data
+            dispatch(createBlog({...postData, creatorName: user?.result.name})) // creating new data
         }
         clear()
     }
+
     const clear = () => {
         setCurrentId(null)
-        setPostData({ creator: '',title: '', coverImage: '',message:'',tags: '' })
+        setPostData({ title: '', coverImge: '',message:'',tags: '' })
     }
+
+    if(!user?.result?.name){
+        return (
+            <Paper className={StyleClass.paper}>
+                <Typography variant="h6" align="center">
+                    Please Sign in to create new memories and likes, delete
+                </Typography>
+            </Paper>
+        );
+    }
+
     return ( 
         <Paper className={StyleClass.paper}>
             <form autoComplete="off" noValidate className={`${StyleClass.root} ${StyleClass.form}`} onSubmit={(e)=>handleSubmit(e)} >
                 <Typography variant="h6">{currentId ? "Edit A Memory":"Create A Memory"}</Typography>
-                <TextField name = "creator" variant="outlined"  label="Creator" fullWidth value={postData.creator} onChange={(e)=> setPostData({...postData,creator: e.target.value}) }></TextField>
                 <TextField name = "title" variant="outlined"  label="Title" fullWidth value={postData.title} onChange={(e)=> setPostData({...postData,title: e.target.value}) }></TextField>
                 <TextField name = "message" variant="outlined"  label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e)=> setPostData({...postData,message: e.target.value}) }></TextField>
                 <TextField name = "tags" variant="outlined"  label="Tags(comma seperated)" fullWidth value={postData.tags} onChange={(e)=> setPostData({...postData,tags: e.target.value.replace(/ /g,'').split(',')}) }></TextField>
