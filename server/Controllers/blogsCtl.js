@@ -62,12 +62,23 @@ export const deleteBlog = async (req,res) => {
 export const likeBlog = async (req,res) => {
     const {id: _id} = req.params
     
+    if(!req.userId) return res.json({ message: "Unathenticated User!"})
+
     if(!mongoose.Types.ObjectId.isValid(_id)){
         return res.status(404).send("No Blog Found with such id")
     }
 
     const blog = await Blogs.findById(_id)
-    const updatedBlog = await Blogs.findByIdAndUpdate(_id,{likeCount : blog.likeCount+1},{new:true}) 
+
+    const index = blog.likes.findIndex((id) => id === String(req.userId))
+    if(index === -1){
+        //like the post
+        blog.likes.push(req.userId)
+    }else{
+        //dislike the post
+        blog.likes = blog.likes.filter((id) => id !== String(req.userId))
+    }
+    const updatedBlog = await Blogs.findByIdAndUpdate(_id,blog,{new:true}) 
 
     res.json(updatedBlog)
 }

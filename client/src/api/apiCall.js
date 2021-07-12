@@ -6,7 +6,7 @@ const API = axios.create({baseURL: "http://localhost:5000"})
 //it will inject the token in request header and send to bakcend and (middleware) for token verification
 API.interceptors.request.use((req)=>{
     if(localStorage.getItem('profile')){
-        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
+        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
     }
 
     return req
