@@ -1,6 +1,6 @@
 import axios from "axios"
-// const url = "https://memories-create-app.herokuapp.com/blogs"
-const API = axios.create({baseURL: "http://localhost:5000"})
+const API = "https://memories-create-app.herokuapp.com"
+//const API = axios.create({baseURL: "http://localhost:5000"})
 
 //this will intercept in every api call ,
 //it will inject the token in request header and send to bakcend and (middleware) for token verification
