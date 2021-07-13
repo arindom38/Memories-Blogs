@@ -2,6 +2,8 @@ import Users from "../Models/Users.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 
+const secret = process.env.API_SECRET_KEY
+
 export const signIn = async (req,res) =>{
     const {email,password} = req.body
     try {
@@ -13,7 +15,7 @@ export const signIn = async (req,res) =>{
 
         if(!ispassCorrect) return res.status(404).json({message: "Invalid Credential"})
 
-        const token = jwt.sign({email:existingUser.email, id: existingUser._id},'test',{expiresIn: '1h'})
+        const token = jwt.sign({email:existingUser.email, id: existingUser._id},secret,{expiresIn: '1h'})
 
         res.status(200).json({result: existingUser,token:token})
     } catch (error) {
@@ -35,7 +37,7 @@ export const signUp = async (req,res) =>{
         
         const newUser = await Users.create({email:email,name:`${firstName} ${lastName}`,password:hashedPassword})
 
-        const token = jwt.sign({email:newUser.email, id: newUser._id},'test',{expiresIn: '1h'})
+        const token = jwt.sign({email:newUser.email, id: newUser._id},secret,{expiresIn: '1h'})
         
         res.status(200).json({result:newUser,token})
     } catch (error) {
