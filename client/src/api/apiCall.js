@@ -1,5 +1,5 @@
 import axios from "axios"
-const API = "https://memories-create-app.herokuapp.com"
+const API = axios.create({baseURL:"https://memories-create-app.herokuapp.com"})
 //const API = axios.create({baseURL: "http://localhost:5000"})
 
 //this will intercept in every api call ,
